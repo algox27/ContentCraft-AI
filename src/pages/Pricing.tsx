@@ -1,237 +1,237 @@
 export default function Pricing() {
-  return (
-    <div className="pricing-page">
-      <div className="pricing-container">
-        {/* Header */}
-        <div className="pricing-header">
-          <h1>💎 Choose Your Plan</h1>
-          <p>Unlock unlimited content creation with our premium plans</p>
-        </div>
+    return (
+        <div className="pricing-page">
+            <div className="pricing-container">
+                {/* Header */}
+                <div className="pricing-header">
+                    <h1>💎 Choose Your Plan</h1>
+                    <p>Unlock unlimited content creation with our premium plans</p>
+                </div>
 
-        {/* Free Plan Banner */}
-        <div className="free-plan-banner">
-          <div className="free-icon">🎁</div>
-          <div className="free-info">
-            <h3>Free Plan</h3>
-            <p>5 Credits every 7 days • Perfect for trying out</p>
-          </div>
-        </div>
+                {/* Free Plan Banner */}
+                <div className="free-plan-banner">
+                    <div className="free-icon">🎁</div>
+                    <div className="free-info">
+                        <h3>Free Plan</h3>
+                        <p>5 Credits every 7 days • Perfect for trying out</p>
+                    </div>
+                </div>
 
-        {/* Pricing Cards */}
-        <div className="pricing-grid">
-          {/* Starter Plan */}
-          <div className="pricing-card">
-            <div className="card-header">
-              <h3>Starter</h3>
-              <div className="price">
-                <span className="currency">₹</span>
-                <span className="amount">99</span>
-                <span className="period">/month</span>
-              </div>
+                {/* Pricing Cards */}
+                <div className="pricing-grid">
+                    {/* Starter Plan */}
+                    <div className="pricing-card">
+                        <div className="card-header">
+                            <h3>Starter</h3>
+                            <div className="price">
+                                <span className="currency">₹</span>
+                                <span className="amount">99</span>
+                                <span className="period">/month</span>
+                            </div>
+                        </div>
+
+                        <ul className="features-list">
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span><strong>100 Credits</strong> per month</span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>All Features Unlocked</span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>Priority Support</span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>No Daily Limits</span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>Cancel Anytime</span>
+                            </li>
+                        </ul>
+
+                        <a href="https://t.me/H9rsh_x1" target="_blank" rel="noopener noreferrer" className="plan-button">
+                            Get Started
+                        </a>
+                    </div>
+
+                    {/* Pro Plan - Featured */}
+                    <div className="pricing-card featured">
+                        <div className="popular-badge">🔥 Most Popular</div>
+                        <div className="card-header">
+                            <h3>Pro</h3>
+                            <div className="price">
+                                <span className="currency">₹</span>
+                                <span className="amount">299</span>
+                                <span className="period">/month</span>
+                            </div>
+                        </div>
+
+                        <ul className="features-list">
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span><strong>Unlimited Credits</strong></span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>Advanced AI Features</span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>API Access</span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>White-label Option</span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>Priority Support 24/7</span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>Early Access to New Features</span>
+                            </li>
+                        </ul>
+
+                        <a href="https://t.me/H9rsh_x1" target="_blank" rel="noopener noreferrer" className="plan-button featured-button">
+                            Get Pro Now
+                        </a>
+                    </div>
+
+                    {/* Lifetime Plan */}
+                    <div className="pricing-card">
+                        <div className="card-header">
+                            <h3>Lifetime</h3>
+                            <div className="price">
+                                <span className="currency">₹</span>
+                                <span className="amount">999</span>
+                                <span className="period">/one-time</span>
+                            </div>
+                            <div className="savings">Save ₹2,589 per year!</div>
+                        </div>
+
+                        <ul className="features-list">
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span><strong>Unlimited Forever</strong></span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>All Future Updates</span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>Priority Support Forever</span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>Commercial License</span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>No Monthly Fees</span>
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span>Best Value 🎯</span>
+                            </li>
+                        </ul>
+
+                        <a href="https://t.me/H9rsh_x1" target="_blank" rel="noopener noreferrer" className="plan-button">
+                            Get Lifetime Access
+                        </a>
+                    </div>
+                </div>
+
+                {/* FAQ Section */}
+                <div className="faq-section">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div className="faq-grid">
+                        <div className="faq-item">
+                            <h4>💳 How do I pay?</h4>
+                            <p>Contact us on Telegram (@H9rsh_x1) and we'll guide you through the payment process.</p>
+                        </div>
+
+                        <div className="faq-item">
+                            <h4>🔄 Can I cancel anytime?</h4>
+                            <p>Yes! Monthly plans can be cancelled anytime. No questions asked.</p>
+                        </div>
+
+                        <div className="faq-item">
+                            <h4>⚡ When do I get credits?</h4>
+                            <p>Immediately after payment confirmation. Usually within 5-10 minutes.</p>
+                        </div>
+
+                        <div className="faq-item">
+                            <h4>🎁 Is there a free trial?</h4>
+                            <p>Yes! Everyone gets 5 free credits every 7 days. No credit card required.</p>
+                        </div>
+
+                        <div className="faq-item">
+                            <h4>💰 What's the best value?</h4>
+                            <p>Lifetime plan saves you ₹2,589 per year compared to monthly Pro plan!</p>
+                        </div>
+
+                        <div className="faq-item">
+                            <h4>🔒 Is payment secure?</h4>
+                            <p>Yes! We use secure payment methods. Your data is safe with us.</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* CTA Section */}
+                <div className="cta-section">
+                    <h2>Ready to Upgrade?</h2>
+                    <p>Join hundreds of content creators using ContentCraft AI</p>
+                    <a href="https://t.me/H9rsh_x1" target="_blank" rel="noopener noreferrer" className="cta-button">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
+                        </svg>
+                        Contact on Telegram
+                    </a>
+                </div>
             </div>
-            
-            <ul className="features-list">
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span><strong>100 Credits</strong> per month</span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>All Features Unlocked</span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>Priority Support</span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>No Daily Limits</span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>Cancel Anytime</span>
-              </li>
-            </ul>
 
-            <a href="https://t.me/H9rsh_x1" target="_blank" rel="noopener noreferrer" className="plan-button">
-              Get Started
-            </a>
-          </div>
-
-          {/* Pro Plan - Featured */}
-          <div className="pricing-card featured">
-            <div className="popular-badge">🔥 Most Popular</div>
-            <div className="card-header">
-              <h3>Pro</h3>
-              <div className="price">
-                <span className="currency">₹</span>
-                <span className="amount">299</span>
-                <span className="period">/month</span>
-              </div>
-            </div>
-            
-            <ul className="features-list">
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span><strong>Unlimited Credits</strong></span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>Advanced AI Features</span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>API Access</span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>White-label Option</span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>Priority Support 24/7</span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>Early Access to New Features</span>
-              </li>
-            </ul>
-
-            <a href="https://t.me/H9rsh_x1" target="_blank" rel="noopener noreferrer" className="plan-button featured-button">
-              Get Pro Now
-            </a>
-          </div>
-
-          {/* Lifetime Plan */}
-          <div className="pricing-card">
-            <div className="card-header">
-              <h3>Lifetime</h3>
-              <div className="price">
-                <span className="currency">₹</span>
-                <span className="amount">999</span>
-                <span className="period">/one-time</span>
-              </div>
-              <div className="savings">Save ₹2,589 per year!</div>
-            </div>
-            
-            <ul className="features-list">
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span><strong>Unlimited Forever</strong></span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>All Future Updates</span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>Priority Support Forever</span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>Commercial License</span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>No Monthly Fees</span>
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>Best Value 🎯</span>
-              </li>
-            </ul>
-
-            <a href="https://t.me/H9rsh_x1" target="_blank" rel="noopener noreferrer" className="plan-button">
-              Get Lifetime Access
-            </a>
-          </div>
-        </div>
-
-        {/* FAQ Section */}
-        <div className="faq-section">
-          <h2>Frequently Asked Questions</h2>
-          
-          <div className="faq-grid">
-            <div className="faq-item">
-              <h4>💳 How do I pay?</h4>
-              <p>Contact us on Telegram (@H9rsh_x1) and we'll guide you through the payment process.</p>
-            </div>
-
-            <div className="faq-item">
-              <h4>🔄 Can I cancel anytime?</h4>
-              <p>Yes! Monthly plans can be cancelled anytime. No questions asked.</p>
-            </div>
-
-            <div className="faq-item">
-              <h4>⚡ When do I get credits?</h4>
-              <p>Immediately after payment confirmation. Usually within 5-10 minutes.</p>
-            </div>
-
-            <div className="faq-item">
-              <h4>🎁 Is there a free trial?</h4>
-              <p>Yes! Everyone gets 5 free credits every 7 days. No credit card required.</p>
-            </div>
-
-            <div className="faq-item">
-              <h4>💰 What's the best value?</h4>
-              <p>Lifetime plan saves you ₹2,589 per year compared to monthly Pro plan!</p>
-            </div>
-
-            <div className="faq-item">
-              <h4>🔒 Is payment secure?</h4>
-              <p>Yes! We use secure payment methods. Your data is safe with us.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* CTA Section */}
-        <div className="cta-section">
-          <h2>Ready to Upgrade?</h2>
-          <p>Join hundreds of content creators using ContentCraft AI</p>
-          <a href="https://t.me/H9rsh_x1" target="_blank" rel="noopener noreferrer" className="cta-button">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
-            </svg>
-            Contact on Telegram
-          </a>
-        </div>
-      </div>
-
-      <style>{`
+            <style>{`
         .pricing-page {
           min-height: 100vh;
           background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
@@ -539,6 +539,6 @@ export default function Pricing() {
           }
         }
       `}</style>
-    </div>
-  );
+        </div>
+    );
 }

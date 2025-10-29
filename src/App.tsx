@@ -367,12 +367,6 @@ Don't forget to LIKE, SUBSCRIBE, and hit the BELL icon for more content!
               >
                 🔍 Keywords
               </button>
-              <button className="text-sm text-gray-600 hover:text-blue-600 font-medium transition-colors">
-                Guide
-              </button>
-              <button className="px-5 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
-                Export
-              </button>
             </div>
           </div>
         </div>
