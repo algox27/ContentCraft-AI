@@ -31,7 +31,6 @@ function App() {
   const [currentPage, setCurrentPage] = useState<'analyzer' | 'generator' | 'instagram' | 'test' | 'terms' | 'admin' | 'pricing'>('analyzer');
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
-  const [termsAccepted, setTermsAccepted] = useState(false);
 
   // Credit system
   const { credits, loading: creditsLoading, useCredit, hasCredits } = useCredits();
@@ -39,16 +38,13 @@ function App() {
   // Check if terms have been accepted
   useEffect(() => {
     const accepted = localStorage.getItem('termsAccepted');
-    if (accepted === 'true') {
-      setTermsAccepted(true);
-    } else {
+    if (accepted !== 'true') {
       setShowTermsModal(true);
     }
   }, []);
 
   const handleAcceptTerms = () => {
     localStorage.setItem('termsAccepted', 'true');
-    setTermsAccepted(true);
     setShowTermsModal(false);
   };
 
@@ -87,12 +83,14 @@ function App() {
 
   // Track page changes
   useEffect(() => {
-    const pageNames = {
+    const pageNames: Record<string, string> = {
       analyzer: 'ContentCraft AI - YouTube SEO',
       generator: 'ContentCraft AI - Tag Generator',
       instagram: 'ContentCraft AI - Instagram Tools',
       test: 'ContentCraft AI - Test',
       terms: 'ContentCraft AI - Terms & Conditions',
+      admin: 'ContentCraft AI - Admin Panel',
+      pricing: 'ContentCraft AI - Pricing',
     };
     trackPageView(pageNames[currentPage]);
   }, [currentPage]);
