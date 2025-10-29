@@ -5,6 +5,7 @@ import InstagramTools from './pages/InstagramTools';
 import TestCredits from './pages/TestCredits';
 import TermsAndConditions from './pages/TermsAndConditions';
 import AdminPanel from './pages/AdminPanel';
+import Pricing from './pages/Pricing';
 import Footer from './components/Footer';
 import SupportButton from './components/SupportButton';
 import CreditBanner from './components/CreditBanner';
@@ -26,7 +27,7 @@ function App() {
   const [seoScore, setSeoScore] = useState(0);
   const [isAiGenerated, setIsAiGenerated] = useState(false);
   const [showKeywordSidebar, setShowKeywordSidebar] = useState(false);
-  const [currentPage, setCurrentPage] = useState<'analyzer' | 'generator' | 'instagram' | 'test' | 'terms' | 'admin'>('analyzer');
+  const [currentPage, setCurrentPage] = useState<'analyzer' | 'generator' | 'instagram' | 'test' | 'terms' | 'admin' | 'pricing'>('analyzer');
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   // Credit system
@@ -44,6 +45,8 @@ function App() {
         setCurrentPage('generator');
       } else if (hash === '#instagram') {
         setCurrentPage('instagram');
+      } else if (hash === '#pricing') {
+        setCurrentPage('pricing');
       } else if (hash === '') {
         setCurrentPage('analyzer');
       }
@@ -293,6 +296,16 @@ Don't forget to LIKE, SUBSCRIBE, and hit the BELL icon for more content!
     return <AdminPanel />;
   }
 
+  // Show Pricing page
+  if (currentPage === 'pricing') {
+    return (
+      <>
+        <Pricing />
+        <Footer />
+      </>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Keyword Sidebar */}
@@ -334,6 +347,15 @@ Don't forget to LIKE, SUBSCRIBE, and hit the BELL icon for more content!
                 className="px-4 py-2 text-sm font-semibold rounded-lg transition-colors text-gray-600 hover:text-pink-600 hover:bg-pink-50"
               >
                 📸 Instagram Tools
+              </button>
+              <button 
+                onClick={() => {
+                  trackNavigation(currentPage, 'pricing');
+                  setCurrentPage('pricing');
+                }}
+                className="px-4 py-2 text-sm font-semibold rounded-lg transition-colors text-gray-600 hover:text-yellow-600 hover:bg-yellow-50"
+              >
+                💎 Pricing
               </button>
               <button 
                 onClick={() => setShowKeywordSidebar(!showKeywordSidebar)}
