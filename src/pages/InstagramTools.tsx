@@ -212,8 +212,25 @@ export default function InstagramTools({ onBack }: InstagramToolsProps) {
     };
 
     // Generate Caption with variations
-    const generateCaption = () => {
+    const generateCaption = async () => {
         if (!captionTopic.trim()) return;
+
+        // Check if user has credits
+        if (!hasCredits()) {
+            setShowUpgradeModal(true);
+            return;
+        }
+
+        // Use a credit
+        const success = await useCredit('generate', 'Instagram Caption Generator', {
+            topic: captionTopic,
+            style: captionStyle,
+        });
+
+        if (!success) {
+            setShowUpgradeModal(true);
+            return;
+        }
 
         const captions = {
             casual: [
@@ -298,8 +315,24 @@ export default function InstagramTools({ onBack }: InstagramToolsProps) {
     };
 
     // Search hashtags
-    const searchHashtags = () => {
+    const searchHashtags = async () => {
         if (!hashtagSearch.trim()) return;
+
+        // Check if user has credits
+        if (!hasCredits()) {
+            setShowUpgradeModal(true);
+            return;
+        }
+
+        // Use a credit
+        const success = await useCredit('search', 'Instagram Hashtag Research', {
+            query: hashtagSearch,
+        });
+
+        if (!success) {
+            setShowUpgradeModal(true);
+            return;
+        }
 
         const query = hashtagSearch.toLowerCase();
 
@@ -1523,8 +1556,7 @@ export default function InstagramTools({ onBack }: InstagramToolsProps) {
           }
         }
       `}</style>
+      <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
         </div>
     );
 }
-
-      <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />

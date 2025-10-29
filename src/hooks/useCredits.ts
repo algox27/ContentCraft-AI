@@ -13,6 +13,25 @@ export const useCredits = () => {
   const [userId, setUserId] = useState<string>('');
   const hasInitialized = useRef(false);
 
+  // Listen for credit changes across components
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const stored = localStorage.getItem('contentcraft_credits');
+      if (stored) {
+        const newCredits = parseInt(stored);
+        console.log('🔄 Credits updated from storage:', newCredits);
+        setCredits(newCredits);
+      }
+    };
+
+    // Listen for custom event (for same-window updates)
+    window.addEventListener('creditsUpdated', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('creditsUpdated', handleStorageChange);
+    };
+  }, []);
+
   // Get or create user ID (browser fingerprint)
   useEffect(() => {
     // Prevent multiple initializations (React 18 Strict Mode runs effects twice)
@@ -202,6 +221,9 @@ export const useCredits = () => {
     }
     
     console.log('💾 Saved to localStorage:', newCredits);
+
+    // Dispatch custom event to update all components
+    window.dispatchEvent(new Event('creditsUpdated'));
 
     // Try to update Supabase
     if (import.meta.env.VITE_SUPABASE_URL) {

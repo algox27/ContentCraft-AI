@@ -738,8 +738,7 @@ export default function TagGenerator({ onBack }: TagGeneratorProps) {
           }
         }
       `}</style>
+      <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
     </div>
   );
 }
-
-      <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
