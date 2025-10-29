@@ -7,6 +7,8 @@ import {
     trackFavoriteSaved,
     trackCopyAction,
 } from '../utils/analytics';
+import { useCredits } from '../hooks/useCredits';
+import UpgradeModal from '../components/UpgradeModal';
 
 interface InstagramToolsProps {
     onBack?: () => void;
@@ -20,6 +22,9 @@ interface HashtagData {
 
 export default function InstagramTools({ onBack }: InstagramToolsProps) {
     const [activeTab, setActiveTab] = useState<'caption' | 'hashtags'>('caption');
+    const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+    
+    const { useCredit, hasCredits } = useCredits();
 
     // Caption Generator State
     const [captionTopic, setCaptionTopic] = useState('');
@@ -1521,3 +1526,5 @@ export default function InstagramTools({ onBack }: InstagramToolsProps) {
         </div>
     );
 }
+
+      <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />

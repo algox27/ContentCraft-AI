@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useCredits } from '../hooks/useCredits';
+import UpgradeModal from '../components/UpgradeModal';
 
 interface KeywordSuggestion {
   keyword: string;
@@ -19,6 +21,9 @@ export default function TagGenerator({ onBack }: TagGeneratorProps) {
   const [hashtagSuggestions, setHashtagSuggestions] = useState<string[]>([]);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  
+  const { useCredit, hasCredits } = useCredits();
 
   // Generate keyword suggestions
   const generateKeywordSuggestions = (query: string): KeywordSuggestion[] => {
@@ -200,8 +205,25 @@ export default function TagGenerator({ onBack }: TagGeneratorProps) {
     return allHashtags.slice(0, 20);
   };
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (!searchQuery.trim()) return;
+
+    // Check if user has credits
+    if (!hasCredits()) {
+      setShowUpgradeModal(true);
+      return;
+    }
+
+    // Use a credit
+    const success = await useCredit('generate', 'YouTube Tag Generator', {
+      query: searchQuery,
+      type: activeTab,
+    });
+
+    if (!success) {
+      setShowUpgradeModal(true);
+      return;
+    }
 
     setIsLoading(true);
     setTimeout(() => {
@@ -719,3 +741,5 @@ export default function TagGenerator({ onBack }: TagGeneratorProps) {
     </div>
   );
 }
+
+      <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
