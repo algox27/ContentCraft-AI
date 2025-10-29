@@ -124,10 +124,10 @@ export default function Pricing() {
                         </a>
                     </div>
 
-                    {/* Lifetime Plan */}
+                    {/* 1 Year Plan */}
                     <div className="pricing-card">
                         <div className="card-header">
-                            <h3>Lifetime</h3>
+                            <h3>1 Year Plan</h3>
                             <div className="price">
                                 <span className="currency">₹</span>
                                 <span className="amount">999</span>
@@ -141,7 +141,7 @@ export default function Pricing() {
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <polyline points="20 6 9 17 4 12" />
                                 </svg>
-                                <span><strong>Unlimited Forever</strong></span>
+                                <span><strong>Unlimited for 1 Year</strong></span>
                             </li>
                             <li>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -153,7 +153,7 @@ export default function Pricing() {
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <polyline points="20 6 9 17 4 12" />
                                 </svg>
-                                <span>Priority Support Forever</span>
+                                <span>Priority Support for 1 Year</span>
                             </li>
                             <li>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -176,7 +176,7 @@ export default function Pricing() {
                         </ul>
 
                         <a href="https://t.me/H9rsh_x1" target="_blank" rel="noopener noreferrer" className="plan-button">
-                            Get Lifetime Access
+                            Get 1 Year Access
                         </a>
                     </div>
                 </div>
@@ -208,7 +208,7 @@ export default function Pricing() {
 
                         <div className="faq-item">
                             <h4>💰 What's the best value?</h4>
-                            <p>Lifetime plan saves you ₹2,589 per year compared to monthly Pro plan!</p>
+                            <p>1 Year plan saves you ₹2,589 compared to monthly Pro plan!</p>
                         </div>
 
                         <div className="faq-item">

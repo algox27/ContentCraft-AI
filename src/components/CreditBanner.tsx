@@ -50,7 +50,7 @@ export default function CreditBanner({ credits, loading }: CreditBannerProps) {
       <style>{`
         .credit-banner {
           position: fixed;
-          top: 20px;
+          top: 80px;
           right: 20px;
           background: linear-gradient(145deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
           color: white;
@@ -60,7 +60,7 @@ export default function CreditBanner({ credits, loading }: CreditBannerProps) {
             0 8px 32px rgba(251, 191, 36, 0.5),
             0 0 0 1px rgba(255, 255, 255, 0.2) inset,
             0 0 20px rgba(251, 191, 36, 0.3);
-          z-index: 9999;
+          z-index: 50;
           display: flex;
           align-items: center;
           gap: 16px;

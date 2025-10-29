@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import SupportButton from './components/SupportButton';
 import CreditBanner from './components/CreditBanner';
 import UpgradeModal from './components/UpgradeModal';
+import TermsModal from './components/TermsModal';
 import { useCredits } from './hooks/useCredits';
 import { initGA, trackPageView, trackNavigation, trackSessionStart } from './utils/analytics';
 
@@ -29,9 +30,27 @@ function App() {
   const [showKeywordSidebar, setShowKeywordSidebar] = useState(false);
   const [currentPage, setCurrentPage] = useState<'analyzer' | 'generator' | 'instagram' | 'test' | 'terms' | 'admin' | 'pricing'>('analyzer');
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   // Credit system
   const { credits, loading: creditsLoading, useCredit, hasCredits } = useCredits();
+
+  // Check if terms have been accepted
+  useEffect(() => {
+    const accepted = localStorage.getItem('termsAccepted');
+    if (accepted === 'true') {
+      setTermsAccepted(true);
+    } else {
+      setShowTermsModal(true);
+    }
+  }, []);
+
+  const handleAcceptTerms = () => {
+    localStorage.setItem('termsAccepted', 'true');
+    setTermsAccepted(true);
+    setShowTermsModal(false);
+  };
 
   // Handle hash navigation
   useEffect(() => {
@@ -910,6 +929,7 @@ Don't forget to LIKE, SUBSCRIBE, and hit the BELL icon for more content!
       <SupportButton />
       <CreditBanner credits={credits} loading={creditsLoading} />
       <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
+      <TermsModal isOpen={showTermsModal} onAccept={handleAcceptTerms} />
       </div>
     </div>
   );

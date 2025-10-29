@@ -53,12 +53,12 @@ export default function UpgradeModal({ isOpen, onClose }: UpgradeModalProps) {
           </div>
 
           <div className="pricing-card">
-            <h3>Lifetime</h3>
+            <h3>1 Year Plan</h3>
             <div className="price">₹999<span>/one-time</span></div>
             <ul className="features">
-              <li>✅ Unlimited Forever</li>
+              <li>✅ Unlimited for 1 Year</li>
               <li>✅ All Future Updates</li>
-              <li>✅ Priority Support</li>
+              <li>✅ Priority Support for 1 Year</li>
               <li>✅ Commercial License</li>
             </ul>
           </div>
