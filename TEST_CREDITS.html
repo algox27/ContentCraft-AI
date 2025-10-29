@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Credit System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-primary { background: #3b82f6; color: white; }
+        .btn-danger { background: #ef4444; color: white; }
+        .btn-success { background: #10b981; color: white; }
+        pre {
+            background: #1e293b;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Credit System Debugger</h1>
+    
+    <div class="card" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: white;">
+        <h2 style="margin-top: 0;">⚠️ IMPORTANT</h2>
+        <p><strong>Open this file in your browser while the app is running!</strong></p>
+        <p>File location: <code>youtube-seo-analyzer/TEST_CREDITS.html</code></p>
+    </div>
+
+    <div class="card">
+        <h2>Current Status</h2>
+        <div id="status"></div>
+    </div>
+
+    <div class="card">
+        <h2>Actions</h2>
+        <button class="btn-primary" onclick="checkCredits()">Check Credits</button>
+        <button class="btn-success" onclick="resetCredits()">Reset to 5</button>
+        <button class="btn-danger" onclick="clearAll()">Clear All Data</button>
+        <button class="btn-primary" onclick="useOneCredit()">Use 1 Credit</button>
+    </div>
+
+    <div class="card">
+        <h2>LocalStorage Data</h2>
+        <pre id="localStorage"></pre>
+    </div>
+
+    <script>
+        function updateDisplay() {
+            const userId = localStorage.getItem('contentcraft_user_id');
+            const credits = localStorage.getItem('contentcraft_credits');
+            const lastReset = localStorage.getItem('contentcraft_last_reset');
+            
+            const status = document.getElementById('status');
+            status.innerHTML = `
+                <p><strong>User ID:</strong> ${userId || 'Not set'}</p>
+                <p><strong>Credits:</strong> ${credits || 'Not set'}</p>
+                <p><strong>Last Reset:</strong> ${lastReset ? new Date(lastReset).toLocaleString() : 'Not set'}</p>
+            `;
+
+            const localStorageDiv = document.getElementById('localStorage');
+            const allData = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('contentcraft_')) {
+                    allData[key] = localStorage.getItem(key);
+                }
+            }
+            localStorageDiv.textContent = JSON.stringify(allData, null, 2);
+        }
+
+        function checkCredits() {
+            const credits = localStorage.getItem('contentcraft_credits');
+            alert(`Current Credits: ${credits || '5 (default)'}`);
+            updateDisplay();
+        }
+
+        function resetCredits() {
+            localStorage.setItem('contentcraft_credits', '5');
+            localStorage.setItem('contentcraft_last_reset', new Date().toISOString());
+            alert('Credits reset to 5!');
+            updateDisplay();
+        }
+
+        function clearAll() {
+            if (confirm('Clear all credit data?')) {
+                localStorage.removeItem('contentcraft_user_id');
+                localStorage.removeItem('contentcraft_credits');
+                localStorage.removeItem('contentcraft_last_reset');
+                alert('All data cleared!');
+                updateDisplay();
+            }
+        }
+
+        function useOneCredit() {
+            let credits = parseInt(localStorage.getItem('contentcraft_credits') || '5');
+            if (credits > 0) {
+                credits--;
+                localStorage.setItem('contentcraft_credits', credits.toString());
+                alert(`Credit used! Remaining: ${credits}`);
+            } else {
+                alert('No credits left!');
+            }
+            updateDisplay();
+        }
+
+        // Initial display
+        updateDisplay();
+
+        // Auto refresh every 2 seconds
+        setInterval(updateDisplay, 2000);
+    </script>
+</body>
+</html>
