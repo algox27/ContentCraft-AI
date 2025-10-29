@@ -1,9 +1,167 @@
 import { useState } from 'react';
 
+const ADMIN_PASSWORD = 'harsh@2025'; // Change this password
+
 export default function AdminPanel() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [userId, setUserId] = useState('');
   const [credits, setCredits] = useState('');
   const [message, setMessage] = useState('');
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput === ADMIN_PASSWORD) {
+      setIsAuthenticated(true);
+      setPasswordError('');
+    } else {
+      setPasswordError('❌ Incorrect password!');
+      setPasswordInput('');
+    }
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="admin-login">
+        <div className="login-container">
+          <div className="login-header">
+            <div className="lock-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <h2>Admin Panel</h2>
+            <p>Enter password to access</p>
+          </div>
+
+          <form onSubmit={handleLogin} className="login-form">
+            <input
+              type="password"
+              value={passwordInput}
+              onChange={(e) => setPasswordInput(e.target.value)}
+              placeholder="Enter admin password"
+              className="password-input"
+              autoFocus
+            />
+            {passwordError && <p className="error-message">{passwordError}</p>}
+            <button type="submit" className="login-button">
+              🔓 Unlock Admin Panel
+            </button>
+          </form>
+        </div>
+
+        <style>{`
+          .admin-login {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+          }
+
+          .login-container {
+            background: white;
+            border-radius: 24px;
+            padding: 48px 40px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+          }
+
+          .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+          }
+
+          .lock-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+          }
+
+          .login-header h2 {
+            margin: 0 0 8px 0;
+            font-size: 28px;
+            font-weight: 800;
+            color: #1e293b;
+          }
+
+          .login-header p {
+            margin: 0;
+            font-size: 15px;
+            color: #64748b;
+          }
+
+          .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+          }
+
+          .password-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+          }
+
+          .password-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+          }
+
+          .error-message {
+            margin: 0;
+            padding: 12px;
+            background: #fee2e2;
+            color: #dc2626;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+          }
+
+          .login-button {
+            width: 100%;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 24px rgba(102, 126, 234, 0.4);
+          }
+
+          .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.6);
+          }
+
+          @media (max-width: 768px) {
+            .login-container {
+              padding: 32px 24px;
+            }
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   const addCredits = () => {
     if (!userId.trim()) {
