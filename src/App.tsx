@@ -31,6 +31,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState<'analyzer' | 'generator' | 'instagram' | 'test' | 'terms' | 'admin' | 'pricing'>('analyzer');
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
+  const [youtubeUrl, setYoutubeUrl] = useState('');
+  const [isFetchingVideo, setIsFetchingVideo] = useState(false);
 
   // Credit system
   const { credits, loading: creditsLoading, useCredit, hasCredits } = useCredits();
@@ -46,6 +48,92 @@ function App() {
   const handleAcceptTerms = () => {
     localStorage.setItem('termsAccepted', 'true');
     setShowTermsModal(false);
+  };
+
+  // Extract video ID from YouTube URL
+  const extractVideoId = (url: string): string | null => {
+    const patterns = [
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+      /^([a-zA-Z0-9_-]{11})$/
+    ];
+    
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match) return match[1];
+    }
+    return null;
+  };
+
+  // Fetch YouTube video data
+  const fetchYouTubeVideo = async () => {
+    if (!youtubeUrl.trim()) return;
+
+    const videoId = extractVideoId(youtubeUrl);
+    if (!videoId) {
+      alert('❌ Invalid YouTube URL! Please enter a valid YouTube video link.');
+      return;
+    }
+
+    // Check credits
+    if (!hasCredits()) {
+      setShowUpgradeModal(true);
+      return;
+    }
+
+    setIsFetchingVideo(true);
+
+    try {
+      // Use YouTube oEmbed API (no API key needed!)
+      const response = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`);
+      
+      if (!response.ok) {
+        throw new Error('Video not found');
+      }
+
+      const data = await response.json();
+
+      // Use credit
+      await useCredit('fetch', 'YouTube Video Analyzer', { videoId });
+
+      // Set title from oEmbed
+      setTitle(data.title || '');
+      
+      // Generate mock description and tags based on title
+      const mockDescription = `Check out this amazing video about ${data.title}!\n\nIn this video, we explore everything you need to know.\n\n🎯 Key Points:\n• Comprehensive guide\n• Step-by-step tutorial\n• Expert tips and tricks\n\nDon't forget to LIKE, SUBSCRIBE, and hit the BELL icon!\n\n#${data.title.replace(/\s+/g, '')}`;
+      
+      setDescription(mockDescription);
+
+      // Generate tags from title
+      const titleWords = data.title.toLowerCase().split(' ').filter((w: string) => w.length > 3);
+      const generatedTags = [
+        ...titleWords.slice(0, 5),
+        `${titleWords[0]} tutorial`,
+        `${titleWords[0]} guide`,
+        'how to',
+        '2025'
+      ];
+      setTags(generatedTags);
+
+      // Generate hashtags
+      const generatedHashtags = [
+        `#${data.title.split(' ')[0]}`,
+        '#YouTube',
+        '#Tutorial',
+        '#HowTo',
+        '#Learn'
+      ];
+      setHashtags(generatedHashtags);
+
+      setIsAiGenerated(false);
+      setShowResults(false);
+      setYoutubeUrl('');
+
+    } catch (error) {
+      console.error('Error fetching video:', error);
+      alert('❌ Could not fetch video data. Please check the URL and try again.');
+    } finally {
+      setIsFetchingVideo(false);
+    }
   };
 
   // Handle hash navigation
@@ -477,6 +565,50 @@ Don't forget to LIKE, SUBSCRIBE, and hit the BELL icon for more content!
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Form */}
           <div className="lg:col-span-2 space-y-6">
+            {/* YouTube URL Input Card */}
+            <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl shadow-lg border-2 border-red-200 p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900">Analyze YouTube Video</h3>
+                  <p className="text-sm text-gray-600">Paste a YouTube URL to auto-fill and analyze</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={youtubeUrl}
+                  onChange={(e) => setYoutubeUrl(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && fetchYouTubeVideo()}
+                  placeholder="https://www.youtube.com/watch?v=..."
+                  className="flex-1 px-4 py-3 border-2 border-red-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all text-gray-900 placeholder-gray-400"
+                  disabled={isFetchingVideo}
+                />
+                <button
+                  onClick={fetchYouTubeVideo}
+                  disabled={!youtubeUrl.trim() || isFetchingVideo}
+                  className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold rounded-xl hover:from-red-700 hover:to-pink-700 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed transition-all shadow-lg"
+                >
+                  {isFetchingVideo ? (
+                    <span className="flex items-center gap-2">
+                      <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Fetching...
+                    </span>
+                  ) : (
+                    '🔍 Fetch & Analyze'
+                  )}
+                </button>
+              </div>
+              <p className="text-xs text-gray-500 mt-2">💡 Tip: Works with youtube.com/watch, youtu.be, or video ID</p>
+            </div>
+
             {/* Title Card */}
             <div className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-6 hover:shadow-xl transition-shadow">
               <div className="flex items-start justify-between mb-4">
