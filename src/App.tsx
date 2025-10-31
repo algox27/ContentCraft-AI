@@ -53,14 +53,43 @@ function App() {
   // Extract video ID from YouTube URL
   const extractVideoId = (url: string): string | null => {
     const patterns = [
+      // Regular YouTube URLs
       /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+      // YouTube Shorts
+      /youtube\.com\/shorts\/([^&\n?#]+)/,
+      // YouTube Live streams
+      /youtube\.com\/live\/([^&\n?#]+)/,
+      // YouTube channel live streams
+      /youtube\.com\/channel\/[^\/]+\/live/,
+      /youtube\.com\/c\/[^\/]+\/live/,
+      /youtube\.com\/@[^\/]+\/live/,
+      // Mobile YouTube URLs
+      /m\.youtube\.com\/watch\?v=([^&\n?#]+)/,
+      // YouTube Music
+      /music\.youtube\.com\/watch\?v=([^&\n?#]+)/,
+      // Direct video ID (11 characters)
       /^([a-zA-Z0-9_-]{11})$/
     ];
     
     for (const pattern of patterns) {
       const match = url.match(pattern);
-      if (match) return match[1];
+      if (match && match[1]) return match[1];
     }
+    
+    // Special handling for live streams (extract from page)
+    if (url.includes('/live') || url.includes('youtube.com/watch') && url.includes('live')) {
+      // Try to extract from various live URL formats
+      const livePatterns = [
+        /youtube\.com\/watch\?v=([^&\n?#]+).*live/,
+        /youtube\.com\/.*live.*v=([^&\n?#]+)/
+      ];
+      
+      for (const pattern of livePatterns) {
+        const match = url.match(pattern);
+        if (match && match[1]) return match[1];
+      }
+    }
+    
     return null;
   };
 
@@ -70,7 +99,7 @@ function App() {
 
     const videoId = extractVideoId(youtubeUrl);
     if (!videoId) {
-      alert('❌ Invalid YouTube URL! Please enter a valid YouTube video link.');
+      alert('❌ Invalid YouTube URL! Please enter a valid YouTube video, Shorts, or Live stream link.');
       return;
     }
 
@@ -584,7 +613,7 @@ Don't forget to LIKE, SUBSCRIBE, and hit the BELL icon for more content!
                   value={youtubeUrl}
                   onChange={(e) => setYoutubeUrl(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && fetchYouTubeVideo()}
-                  placeholder="https://www.youtube.com/watch?v=..."
+                  placeholder="YouTube URL (Videos, Shorts, Live streams supported)"
                   className="flex-1 px-4 py-3 border-2 border-red-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all text-gray-900 placeholder-gray-400"
                   disabled={isFetchingVideo}
                 />
