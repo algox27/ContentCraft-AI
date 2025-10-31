@@ -442,9 +442,9 @@ Don't forget to LIKE, SUBSCRIBE, and hit the BELL icon for more content!
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Keyword Sidebar */}
+      {/* Keyword Sidebar - Hidden on mobile */}
       {showKeywordSidebar && (
-        <div className="w-96 flex-shrink-0 border-r border-gray-200 overflow-hidden">
+        <div className="hidden lg:block w-96 flex-shrink-0 border-r border-gray-200 overflow-hidden">
           <KeywordSidebar onSelectKeyword={handleKeywordSelect} />
         </div>
       )}
@@ -463,7 +463,7 @@ Don't forget to LIKE, SUBSCRIBE, and hit the BELL icon for more content!
               </div>
               <span className="text-lg font-bold text-gray-900">ContentCraft AI</span>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="hidden md:flex items-center space-x-3">
               <button 
                 onClick={() => {
                   trackNavigation(currentPage, 'generator');
@@ -502,9 +502,65 @@ Don't forget to LIKE, SUBSCRIBE, and hit the BELL icon for more content!
                 🔍 Keywords
               </button>
             </div>
+            
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button 
+                onClick={() => setShowKeywordSidebar(!showKeywordSidebar)}
+                className="p-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </nav>
+
+      {/* Mobile Navigation Menu */}
+      {showKeywordSidebar && (
+        <div className="md:hidden bg-white border-b border-gray-200 px-4 py-3">
+          <div className="grid grid-cols-2 gap-2">
+            <button 
+              onClick={() => {
+                trackNavigation(currentPage, 'generator');
+                setCurrentPage('generator');
+                setShowKeywordSidebar(false);
+              }}
+              className="px-3 py-2 text-sm font-semibold rounded-lg transition-colors text-gray-600 hover:text-blue-600 hover:bg-blue-50 text-center"
+            >
+              🏷️ YouTube Tags
+            </button>
+            <button 
+              onClick={() => {
+                trackNavigation(currentPage, 'instagram');
+                setCurrentPage('instagram');
+                setShowKeywordSidebar(false);
+              }}
+              className="px-3 py-2 text-sm font-semibold rounded-lg transition-colors text-gray-600 hover:text-pink-600 hover:bg-pink-50 text-center"
+            >
+              📸 Instagram Tools
+            </button>
+            <button 
+              onClick={() => {
+                trackNavigation(currentPage, 'pricing');
+                setCurrentPage('pricing');
+                setShowKeywordSidebar(false);
+              }}
+              className="px-3 py-2 text-sm font-semibold rounded-lg transition-colors text-gray-600 hover:text-yellow-600 hover:bg-yellow-50 text-center"
+            >
+              💎 Pricing
+            </button>
+            <button 
+              onClick={() => setShowKeywordSidebar(false)}
+              className="px-3 py-2 text-sm font-semibold rounded-lg transition-colors text-gray-600 hover:text-gray-800 hover:bg-gray-50 text-center"
+            >
+              ❌ Close
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 border-b border-white/20">
@@ -590,8 +646,8 @@ Don't forget to LIKE, SUBSCRIBE, and hit the BELL icon for more content!
       )}
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
           {/* Left Column - Form */}
           <div className="lg:col-span-2 space-y-6">
             {/* YouTube URL Input Card */}
@@ -607,23 +663,23 @@ Don't forget to LIKE, SUBSCRIBE, and hit the BELL icon for more content!
                   <p className="text-sm text-gray-600">Paste a YouTube URL to auto-fill and analyze</p>
                 </div>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="text"
                   value={youtubeUrl}
                   onChange={(e) => setYoutubeUrl(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && fetchYouTubeVideo()}
                   placeholder="YouTube URL (Videos, Shorts, Live streams supported)"
-                  className="flex-1 px-4 py-3 border-2 border-red-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all text-gray-900 placeholder-gray-400"
+                  className="flex-1 px-4 py-3 border-2 border-red-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all text-gray-900 placeholder-gray-400 text-sm sm:text-base"
                   disabled={isFetchingVideo}
                 />
                 <button
                   onClick={fetchYouTubeVideo}
                   disabled={!youtubeUrl.trim() || isFetchingVideo}
-                  className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold rounded-xl hover:from-red-700 hover:to-pink-700 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed transition-all shadow-lg"
+                  className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold rounded-xl hover:from-red-700 hover:to-pink-700 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed transition-all shadow-lg whitespace-nowrap"
                 >
                   {isFetchingVideo ? (
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center justify-center gap-2">
                       <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
