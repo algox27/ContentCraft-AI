@@ -11,6 +11,7 @@ import SupportButton from './components/SupportButton';
 import CreditBanner from './components/CreditBanner';
 import UpgradeModal from './components/UpgradeModal';
 import TermsModal from './components/TermsModal';
+import AIToolsButton from './components/AIToolsButton';
 import { useCredits } from './hooks/useCredits';
 import { initGA, trackPageView, trackNavigation, trackSessionStart } from './utils/analytics';
 
@@ -875,14 +876,30 @@ Don't forget to LIKE, SUBSCRIBE, and hit the BELL icon for more content!
               </div>
             )}
 
-            {/* Analyze Button */}
-            <button
-              onClick={analyzeSEO}
-              disabled={!title.trim()}
-              className="w-full px-6 py-4 bg-blue-600 text-white font-bold text-lg rounded-xl hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors shadow-lg"
-            >
-              {isAiGenerated ? 'Review & Analyze SEO' : 'Analyze SEO Performance'}
-            </button>
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <AIToolsButton 
+                onApply={(result) => {
+                  // Parse and apply AI result to form
+                  if (result.includes('TITLE:')) {
+                    const titleMatch = result.match(/TITLE:\s*(.+)/);
+                    const descMatch = result.match(/DESCRIPTION:\s*(.+)/s);
+                    if (titleMatch) setTitle(titleMatch[1].trim());
+                    if (descMatch) setDescription(descMatch[1].trim());
+                  } else {
+                    // Apply to description by default
+                    setDescription(result);
+                  }
+                }}
+              />
+              <button
+                onClick={analyzeSEO}
+                disabled={!title.trim()}
+                className="flex-1 px-6 py-4 bg-blue-600 text-white font-bold text-lg rounded-xl hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors shadow-lg"
+              >
+                {isAiGenerated ? 'Review & Analyze SEO' : 'Analyze SEO Performance'}
+              </button>
+            </div>
 
             {/* Results Section */}
             {showResults && (
