@@ -449,6 +449,26 @@ export default function InstagramTools({ onBack }: InstagramToolsProps) {
         setHashtagResults(results);
     };
 
+    // Handle hashtag selection
+    const handleHashtagSelect = (hashtag: string) => {
+        if (!selectedHashtags.includes(hashtag)) {
+            setSelectedHashtags([...selectedHashtags, hashtag]);
+        }
+    };
+
+    const removeSelectedHashtag = (hashtag: string) => {
+        setSelectedHashtags(selectedHashtags.filter(h => h !== hashtag));
+    };
+
+    const clearSelectedHashtags = () => {
+        setSelectedHashtags([]);
+    };
+
+    const copySelectedHashtags = () => {
+        const text = selectedHashtags.join(' ');
+        navigator.clipboard.writeText(text);
+    };
+
     const toggleHashtag = (hashtag: string) => {
         if (selectedHashtags.includes(hashtag)) {
             setSelectedHashtags(selectedHashtags.filter(h => h !== hashtag));

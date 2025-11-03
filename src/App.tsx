@@ -104,12 +104,6 @@ function App() {
       return;
     }
 
-    // Check credits
-    if (!hasCredits()) {
-      setShowUpgradeModal(true);
-      return;
-    }
-
     setIsFetchingVideo(true);
 
     try {
@@ -121,9 +115,6 @@ function App() {
       }
 
       const data = await response.json();
-
-      // Use credit
-      await useCredit('fetch', 'YouTube Video Analyzer', { videoId });
 
       // Set title from oEmbed
       setTitle(data.title || '');
