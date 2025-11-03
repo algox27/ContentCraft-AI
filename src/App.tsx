@@ -11,6 +11,7 @@ import SupportButton from './components/SupportButton';
 import CreditBanner from './components/CreditBanner';
 import UpgradeModal from './components/UpgradeModal';
 import TermsModal from './components/TermsModal';
+import ChromeAINotification from './components/ChromeAINotification';
 import AIToolsButton from './components/AIToolsButton';
 import { useCredits } from './hooks/useCredits';
 import { initGA, trackPageView, trackNavigation, trackSessionStart } from './utils/analytics';
@@ -1153,6 +1154,7 @@ Don't forget to LIKE, SUBSCRIBE, and hit the BELL icon for more content!
       <CreditBanner credits={credits} loading={creditsLoading} />
       <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
       <TermsModal isOpen={showTermsModal} onAccept={handleAcceptTerms} />
+      <ChromeAINotification />
       </div>
     </div>
   );
