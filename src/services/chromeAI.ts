@@ -1,5 +1,6 @@
-// Chrome Built-in AI APIs Service
+// Chrome Built-in AI APIs Service with Smart Fallback
 // Supports: Writer, Rewriter, Summarizer, Translator, Prompt API
+import * as SimpleAI from './simpleAI';
 
 interface AICapabilities {
   writer: boolean;
@@ -76,30 +77,9 @@ DESCRIPTION: [your description here]`;
       description: descMatch?.[1]?.trim() || 'Generated Description',
     };
   } catch (error) {
-    console.warn('Chrome AI Writer not available, using fallback:', error);
-    return fallbackGenerate(topic);
+    console.warn('Chrome AI Writer not available, using Smart AI fallback:', error);
+    return SimpleAI.generateTitleAndDescription(topic);
   }
-}
-
-// Fallback title and description generation
-function fallbackGenerate(topic: string): { title: string; description: string } {
-  const templates = [
-    {
-      title: `${topic} - Complete Guide 2025`,
-      description: `Learn everything about ${topic} in this comprehensive guide. Perfect for beginners and advanced users alike. Subscribe for more tutorials!`
-    },
-    {
-      title: `How to Master ${topic} - Step by Step`,
-      description: `Master ${topic} with this detailed tutorial. We'll cover all the basics and advanced techniques you need to know.`
-    },
-    {
-      title: `${topic} Tutorial - Everything You Need to Know`,
-      description: `Complete ${topic} tutorial covering all essential concepts. Like and subscribe for more educational content!`
-    }
-  ];
-  
-  const randomTemplate = templates[Math.floor(Math.random() * templates.length)];
-  return randomTemplate;
 }
 
 // 2️⃣ Grammar & Clarity Enhancer (Proofreader API)
@@ -121,8 +101,8 @@ ${text}`;
 
     return result.trim();
   } catch (error) {
-    console.error('Proofreader error:', error);
-    throw new Error('Proofreading failed. Please enable Chrome AI APIs.');
+    console.warn('Chrome AI Proofreader not available, using Smart AI fallback:', error);
+    return SimpleAI.proofreadText(text);
   }
 }
 
@@ -149,8 +129,8 @@ export async function rewriteWithTone(
 
     return result.trim();
   } catch (error) {
-    console.error('Rewriter API error:', error);
-    throw new Error('Rewriting failed. Please enable Chrome AI APIs.');
+    console.warn('Chrome AI Rewriter not available, using Smart AI fallback:', error);
+    return SimpleAI.rewriteWithTone(text, tone);
   }
 }
 
@@ -173,21 +153,9 @@ export async function summarizeText(text: string, length: 'short' | 'medium' = '
 
     return result.trim();
   } catch (error) {
-    console.warn('Chrome AI Summarizer not available, using fallback:', error);
-    return fallbackSummarize(text, length);
+    console.warn('Chrome AI Summarizer not available, using Smart AI fallback:', error);
+    return SimpleAI.summarizeText(text, length);
   }
-}
-
-// Fallback summarization (rule-based)
-function fallbackSummarize(text: string, length: 'short' | 'medium' = 'short'): string {
-  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 10);
-  const maxSentences = length === 'short' ? 2 : 4;
-  
-  // Take first few sentences as summary
-  const summary = sentences.slice(0, maxSentences).join('. ').trim();
-  
-  return summary + (summary.endsWith('.') ? '' : '.');
-}
 
 // 5️⃣ Multilingual Translation (Translator API)
 export async function translateText(
@@ -210,31 +178,9 @@ export async function translateText(
 
     return result.trim();
   } catch (error) {
-    console.warn('Chrome AI Translator not available, using fallback:', error);
-    return fallbackTranslate(text, targetLanguage);
+    console.warn('Chrome AI Translator not available, using Smart AI fallback:', error);
+    return SimpleAI.translateText(text, targetLanguage);
   }
-}
-
-// Fallback translation (basic word replacement)
-function fallbackTranslate(text: string, targetLanguage: string): string {
-  const translations: Record<string, Record<string, string>> = {
-    hi: { 'Hello': 'नमस्ते', 'Thank you': 'धन्यवाद', 'Subscribe': 'सब्सक्राइब करें' },
-    es: { 'Hello': 'Hola', 'Thank you': 'Gracias', 'Subscribe': 'Suscríbete' },
-    fr: { 'Hello': 'Bonjour', 'Thank you': 'Merci', 'Subscribe': 'S\'abonner' },
-    de: { 'Hello': 'Hallo', 'Thank you': 'Danke', 'Subscribe': 'Abonnieren' },
-    ja: { 'Hello': 'こんにちは', 'Thank you': 'ありがとう', 'Subscribe': '登録' },
-    ko: { 'Hello': '안녕하세요', 'Thank you': '감사합니다', 'Subscribe': '구독' }
-  };
-
-  let result = text;
-  const langTranslations = translations[targetLanguage] || {};
-  
-  Object.entries(langTranslations).forEach(([en, translated]) => {
-    result = result.replace(new RegExp(en, 'gi'), translated);
-  });
-  
-  return result || `[${targetLanguage.toUpperCase()}] ${text}`;
-}
 
 // 6️⃣ Prompt API (Multimodal - for voice/advanced features)
 export async function generateWithPromptAPI(prompt: string): Promise<string> {
@@ -250,8 +196,8 @@ export async function generateWithPromptAPI(prompt: string): Promise<string> {
 
     return result.trim();
   } catch (error) {
-    console.error('Prompt API error:', error);
-    throw new Error('AI generation failed. Please enable Chrome AI APIs.');
+    console.warn('Chrome AI Prompt API not available, using Smart AI fallback:', error);
+    return SimpleAI.generateWithPromptAPI(prompt);
   }
 }
 
